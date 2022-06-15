@@ -35,28 +35,68 @@ echo nl2br(
 
 class Pont
 {
-  public float $longueur = 0;
-  public float $largeur = 0;
+  private const SURFACE_TEXT = 'This bridge measure %d';
+  private string $unite = "m²";
 
-  public function getSurface(): float {
+  private float $longueur = 0;
+  private float $largeur = 0;
+
+  // *************** setters ***************
+
+  public function setLongueur(float $longueur): void
+  {
+    if($longueur < 0) {
+      trigger_error('Longueur is to short min(0)', E_USER_ERROR);
+    } else {
+      $this->longueur = $longueur;
+    }
+  }
+
+  public function setLargeur(float $largeur): void
+  {
+    if($largeur < 0) {
+      trigger_error('Largeur is to short min(0)', E_USER_ERROR);
+    } else {
+      $this->largeur = $largeur;
+    }
+  }
+
+  // *************** getters ***************
+
+  public function getLongueur(): float
+  {
+    return $this->longueur;
+  }
+
+  public function getLargeur(): float
+  {
+    return $this->largeur;
+  }
+
+  private function getSurface(): float
+  {
     return $this->largeur * $this->longueur;
   }
+
+  // *************** getters ***************
+
+  public function printSurface(): void
+  {
+    echo sprintf(nl2br(self::SURFACE_TEXT . $this->unite . "\n"), $this->getSurface());
+  }
+
 }
 
 $pontRoyal = new Pont;
 $pontEurope = new Pont;
 
-$pontRoyal->longueur = 263.0;
-$pontRoyal->largeur = 15.0;
+$pontRoyal->setLongueur(263.0);
+$pontRoyal->setLargeur(15.0);
 
-$pontEurope->longueur = 286.0;
-$pontEurope->largeur = 17.8;
+$pontEurope->setLongueur(286.0);
+$pontEurope->setLargeur(17.8);
 
-$surfacePontRoyal = $pontRoyal->getSurface();
-$surfacePontEurope = $pontEurope->getSurface();
+$surfacePontRoyal = $pontRoyal->printSurface();
+$surfacePontEurope = $pontEurope->printSurface();
 
-
-echo nl2br(
-  $surfacePontRoyal . "\n" . $surfacePontEurope
-);
 
