@@ -36,11 +36,27 @@ echo nl2br(
 class Pont
 {
   public float $longueur = 0;
+  public float $largeur = 0;
+
+  public function getSurface(): float {
+    return $this->largeur * $this->longueur;
+  }
 }
 
-$pont = new Pont;
-$pont->longueur = 263.0;
+$pontRoyal = new Pont;
+$pontEurope = new Pont;
+
+$pontRoyal->longueur = 263.0;
+$pontRoyal->largeur = 15.0;
+
+$pontEurope->longueur = 286.0;
+$pontEurope->largeur = 17.8;
+
+$surfacePontRoyal = $pontRoyal->getSurface();
+$surfacePontEurope = $pontEurope->getSurface();
+
 
 echo nl2br(
-  var_dump($pont) . "\n"
+  $surfacePontRoyal . "\n" . $surfacePontEurope
 );
+
