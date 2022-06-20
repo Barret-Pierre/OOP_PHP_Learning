@@ -2,59 +2,31 @@
 
 declare(strict_types=1);
 
-// ************************************ Test ************************************
-
-$dateOne = new DateTimeImmutable();
-echo nl2br(
-  $dateOne->format('d/m/Y') . "\n"
-);
-
-function foo(DateTimeImmutable $date)
-{
-  $date->modify('+1 day');
-}
-
-$dateTwo = $dateOne;
-foo($dateTwo);
-echo nl2br(
-  $dateOne->format('d/m/Y') . "\n" . $dateTwo->format('d/m/Y') . "\n" .  $dateTwo->modify('+1 day')->format('d/m/Y') . "\n"
-);
-
-$test = '
-{
-"id":2,
-"couleur":"rouge",
-"forme":"carré"
-}';
-
-echo nl2br(
-  var_dump(json_decode($test)) . "\n"
-);
-
 // ************************************ Pont ************************************
 
 class Pont
 {
   private const SURFACE_TEXT = 'This bridge measure %d';
-  private string $unite = "m²";
+  private const UNITE = "m²";
 
-  private float $longueur = 0;
-  private float $largeur = 0;
+  // *************** constructor ***************
+
+  public function __construct(private float $longueur, private float $largeur) 
+  {
+  }
 
   // *************** setters ***************
 
   public function setLongueur(float $longueur): void
   {
-    if($longueur < 0) {
-      trigger_error('Longueur is to short min(0)', E_USER_ERROR);
-    } else {
-      $this->longueur = $longueur;
-    }
+    self::validerTaille($longueur);
+    $this->longueur = $longueur;
   }
+
 
   public function setLargeur(float $largeur): void
   {
-    if($largeur < 0) {
+    if ($largeur < 0) {
       trigger_error('Largeur is to short min(0)', E_USER_ERROR);
     } else {
       $this->largeur = $largeur;
@@ -78,25 +50,47 @@ class Pont
     return $this->largeur * $this->longueur;
   }
 
-  // *************** getters ***************
+  // *************** reader ***************
 
   public function printSurface(): void
   {
-    echo sprintf(nl2br(self::SURFACE_TEXT . $this->unite . "\n"), $this->getSurface());
+    echo sprintf(nl2br(self::SURFACE_TEXT . self::UNITE . "\n"), $this->getSurface());
   }
 
+  // *************** statics methods ***************
+
+  public static function validerTaille(float $taille): bool
+  {
+    if ($taille < 50.0) {
+      trigger_error('La dimaension est trop courte (50 min).', E_USER_ERROR);
+    }
+
+    return true;
+  }
+  // *************** statics props ***************
+
+  public static int $numberOfWalker = 0;
+
+  public function addWalker()
+  {
+    self::$numberOfWalker++;
+  }
 }
 
-$pontRoyal = new Pont;
-$pontEurope = new Pont;
+$pontRoyal = new Pont(263.0, 15.0);
+$pontEurope = new Pont(280.0, 17.8);
 
-$pontRoyal->setLongueur(263.0);
-$pontRoyal->setLargeur(15.0);
+// $pontRoyal->setLongueur(263.0);
+// $pontRoyal->setLargeur(15.0);
 
-$pontEurope->setLongueur(286.0);
-$pontEurope->setLargeur(17.8);
+// $pontEurope->setLongueur(280.0);
+// $pontEurope->setLargeur(17.8);
 
 $surfacePontRoyal = $pontRoyal->printSurface();
 $surfacePontEurope = $pontEurope->printSurface();
 
+$pontEurope->addWalker();
+$pontEurope->addWalker();
+$pontRoyal->addWalker();
 
+var_dump(Pont::$numberOfWalker);
