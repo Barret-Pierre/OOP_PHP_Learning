@@ -18,8 +18,8 @@ abstract class Users
 
     public function setStatus(string $status): void
     {
-        if(!in_array($status, self::STATUS)) {
-            trigger_error(sprintf('Le status %s n\'est pas valide. Les status possibles sont : %s', $status, implode(', ', self::STATUS)), E_USER_ERROR);
+        if(!in_array($status, static::STATUS)) {
+            trigger_error(sprintf('Le status %s n\'est pas valide. Les status possibles sont : %s', $status, implode(', ', static::STATUS)), E_USER_ERROR);
         };
 
         $this->status = $status;

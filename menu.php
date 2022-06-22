@@ -24,6 +24,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="heritage.php">Heritage</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="message.php">Message</a>
+                </li>
             </ul>
         </div>
     </div>
