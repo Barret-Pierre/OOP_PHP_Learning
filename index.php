@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+$title = 'OOP';
+
 // ************************************ Pont ************************************
 
 class Pont
@@ -77,6 +79,8 @@ class Pont
   }
 }
 
+ob_start();
+
 $pontRoyal = new Pont(263.0, 15.0);
 $pontEurope = new Pont(280.0, 17.8);
 
@@ -94,3 +98,7 @@ $pontEurope->addWalker();
 $pontRoyal->addWalker();
 
 var_dump(Pont::$numberOfWalker);
+
+$content = ob_get_clean();
+
+require('template.php');

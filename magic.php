@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+$title = 'Magic';
+
 class Tablier
 {
     public function __construct(public float $longueur, public float $largeur)
@@ -89,6 +91,8 @@ class ItsPrivate
     }
 }
 
+ob_start();
+
 $maj = new Majuscule;
 
 $pontRoyal = new Pont($maj("Pont Royal"), new Tablier(263.0, 15.0));
@@ -123,4 +127,8 @@ echo nl2br(
 );
 
 unset($priv->private);
+
+$content = ob_get_clean();
+
+require('template.php');
 

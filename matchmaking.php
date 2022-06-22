@@ -1,8 +1,8 @@
 <?php
 
+$title = 'Matchmaking';
+
 // ************************************ Matchmaking ************************************
-
-
 
 class Encounter {
 
@@ -43,6 +43,8 @@ class Player
     }
 }
 
+ob_start();
+
 $greg = new Player('Greg', 400);
 $jade = new Player('Jade', 800);
 
@@ -63,4 +65,10 @@ echo sprintf(
     $jade->name,
 );
 
+$content = ob_get_clean();
+
+require('template.php');
+
 exit(0);
+
+
