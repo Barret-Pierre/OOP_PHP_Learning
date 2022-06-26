@@ -28,7 +28,7 @@
                     <a class="nav-link" href="message.php">Message</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="error.php">Message</a>
+                    <a class="nav-link" href="error.php">Error</a>
                 </li>
             </ul>
         </div>
