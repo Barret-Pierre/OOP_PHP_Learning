@@ -6,7 +6,7 @@ namespace App\MatchMaker\Player;
 
     // ************************************ User ************************************
 
-    abstract class User
+    abstract class User implements PlayerInterface
     {
         public function __construct(protected string $name, protected float $ratio = 400.0)
         {
@@ -16,7 +16,7 @@ namespace App\MatchMaker\Player;
 
         abstract public function getRatio(): float;
 
-        abstract protected function probabilityAgainst(self $player): float;
+        abstract protected function probabilityAgainst(PlayerInterface $player): float;
 
-        abstract public function updateRatioAgainst(self $player, int $result): void;
+        abstract public function updateRatioAgainst(PlayerInterface $player, int $result): void;
     }

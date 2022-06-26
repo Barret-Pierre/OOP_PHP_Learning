@@ -10,9 +10,10 @@ declare(strict_types=1);
 
 namespace Domain\Forum;
 
+use Domain\Display\MessageInterface;
 use Domain\Mixins;
 
-class Message
+class Message implements MessageInterface
 {
     use Mixins\ContentAware, Mixins\UserAware;
 }

@@ -14,7 +14,7 @@ final class BlittzPlayer extends Player
         parent::__construct($name, $ratio);
     }
 
-    public function updateRatioAgainst(User $player, int $result): void
+    public function updateRatioAgainst(PlayerInterface $player, int $result): void
     {
         $this->ratio += 128 * ($result - $this->probabilityAgainst($player));
     }

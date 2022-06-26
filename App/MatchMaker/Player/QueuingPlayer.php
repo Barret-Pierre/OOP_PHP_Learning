@@ -6,15 +6,34 @@ namespace App\MatchMaker\Player;
 
 // ************************************ QueuingPlayer ************************************
 
-final class QueuingPlayer extends Player
+final class QueuingPlayer implements InLobbyPlayerInterface
 {
 
-    public function __construct(public Player $player, protected int $range = 1)
+    public function __construct(protected PlayerInterface $player, protected int $range = 1)
     {
-        parent::__construct($player->name, $player->ratio);
     }
 
-    public function getRange()
+    public function getName(): string
+    {
+        return $this->player->getName();
+    }
+
+    public function getRatio(): float
+    {
+        return $this->player->getRatio();
+    }
+
+    public function getPlayer(): PlayerInterface
+    {
+        return $this->player;
+    }
+
+    public function updateRatioAgainst(PlayerInterface $player, int $result): void
+    {
+        $this->player->updateRatioAgainst($player, $result);
+    }
+
+    public function getRange(): int
     {
         return $this->range;
     }

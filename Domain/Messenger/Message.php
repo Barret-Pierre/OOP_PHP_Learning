@@ -9,12 +9,14 @@ declare(strict_types=1);
 // ************************************ Class Namespaced ************************************
 
 namespace Domain\Messenger;
+
+use Domain\Display\MessageInterface;
 use Domain\User\User;
 use Domain\Mixins;
 
-class Messages
+class Message implements MessageInterface
 {
-    use Mixins\ContentAware, Mixins\UserAware; 
+    use Mixins\ContentAware, Mixins\UserAware;  
 
     public function __construct(User $author, string $content)
     {
